@@ -7,7 +7,7 @@ A simple utility to fix text that you accidentally typed in the wrong keyboard l
 - Converts selected text between English and Persian keyboard layouts.
 - Runs in the background with a system tray icon.
 - Easy to use with a simple keyboard shortcut.
-- Cross-platform (should work on Windows, macOS, and Linux).
+- Cross-platform (should work on Windows, macOS, and Linux but only tested on windows).
 
 ## How it Works
 
@@ -56,17 +56,35 @@ The application runs in the background and monitors for a specific keyboard shor
 
 **For macOS/Linux users:**
 
-1.  Make sure you have activated the virtual environment (see Installation section).
+1.  Activate the virtual environment:
+    ```bash
+    source venv/bin/activate
+    ```
 2.  Run the main script:
     ```bash
-    python src/main.pyw
+    pythonw src/main.pyw
     ```
-2.  The application will start running in the background, and you will see its icon in the system tray.
-3.  Select any text you want to convert.
-4.  Press `Ctrl+Space`.
+3.  The application will start running in the background, and you will see its icon in the system tray.
+4.  Select any text you want to convert.
+5.  Press `Ctrl+Space`. (or any other shorcut in the shortcut.txt file. see configuration for details.)
 5.  The selected text will be instantly converted.
 
 To quit the application, right-click the tray icon and select "Quit".
+
+## Configuration
+
+**For Windows users:**
+use the `configure&run.bat` for ease of use.
+it automatically updates `shortcut.txt` file and runs the app.
+you can edit the `shortcut.txt` yourself too but be cautious.
+
+**For macOS/Linux users:**
+after activating the virtual environment, you can run:
+```bash
+python src/config.py
+```
+it automatically updates `shortcut.txt` file and runs the app.
+you can edit the `shortcut.txt` yourself too but be cautious.
 
 ## Dependencies
 
