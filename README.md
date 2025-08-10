@@ -53,14 +53,6 @@ use the `configure&run.bat` for ease of use.
 it automatically updates `shortcut.txt` file and runs the app.
 you can edit the `shortcut.txt` yourself too but be cautious.
 
-**For macOS/Linux users:**
-after activating the virtual environment, you can run:
-```bash
-python src/config.py
-```
-it automatically updates `shortcut.txt` file and runs the app.
-you can edit the `shortcut.txt` yourself too but be cautious.
-
 ## Dependencies
 
 This project uses the following Python libraries:
