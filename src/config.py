@@ -24,3 +24,26 @@ def get_shortcut():
     else:
         with open(CONFIG_FILE, "r") as f:
             return f.read().strip()
+
+if __name__ == "__main__":
+    shortcut = get_shortcut()
+    print(f"Your shortcut is set to: {shortcut}")
+    print("You can now use this shortcut in the application.")
+    print('do you want to change the shortcut? (y/n): ', end='')
+    if input().lower() == 'y':
+        while True:
+            print("Please press the key combination you want to use as a shortcut and then press ESC.")
+            new_shortcut = keyboard.read_hotkey(suppress=False)
+            print(f"You pressed: {new_shortcut}")
+            confirm = input("Is this correct? (y/n): ").lower()
+            if confirm.lower() == 'y':
+                with open(CONFIG_FILE, "w") as f:
+                    f.write(new_shortcut)
+                print("Shortcut updated successfully.")
+                break
+            else:
+                print("Let's try again.")
+    else:
+        print("No changes made to the shortcut.")
+        print("Exiting without changes.")
+        input("Press Enter to exit.")
