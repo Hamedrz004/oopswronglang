@@ -139,6 +139,7 @@ def setup_tray(config):
 
     image = Image.open("assets/icon.png")
     menu = pystray.Menu(
+        pystray.MenuItem(f'Current Shortcut: {get_shortcut()}',lambda icon, item: None),
         pystray.MenuItem(
             'Run on Startup',
             on_toggle_startup,
@@ -161,7 +162,7 @@ def main():
 
     # Register the keyboard shortcut
     shortcut = get_shortcut()
-    keyboard.add_hotkey(shortcut, on_shortcut, suppress=True)
+    keyboard.add_hotkey(shortcut, on_shortcut)
     print(f"Press {shortcut} to convert text to Persian.")
 
     # Keep the script running
