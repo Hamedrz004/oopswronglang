@@ -2,6 +2,7 @@ import os
 import json
 import keyboard
 import time
+import msvcrt
 
 CONFIG_FILE = "config.json"
 SHORTCUT_FILE = "shortcut.txt" # For migrating old config
@@ -66,7 +67,11 @@ if __name__ == "__main__":
             print("Please press the key combination you want to use as a shortcut and then press ESC.")
             new_shortcut = keyboard.read_hotkey(suppress=False)
             print(f"You pressed: {new_shortcut}")
-            time.sleep(0.5)
+            time.sleep(0.01)
+            # Clear the input buffer
+            while msvcrt.kbhit():
+                msvcrt.getch()
+
             confirm = input("Is this correct? (y/n): ").lower()
             if confirm.lower() == 'y':
                 config['shortcut'] = new_shortcut
@@ -77,6 +82,5 @@ if __name__ == "__main__":
                 print("Let's try again.")
     else:
         print("No changes made to the shortcut.")
-
-    print("Exiting without changes.")
+        print("Exiting without changes.")
     input("Press Enter to exit.")

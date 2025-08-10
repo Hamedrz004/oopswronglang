@@ -161,7 +161,7 @@ def main():
 
     # Register the keyboard shortcut
     shortcut = get_shortcut()
-    keyboard.add_hotkey(shortcut, on_shortcut)
+    keyboard.add_hotkey(shortcut, on_shortcut, suppress=True)
     print(f"Press {shortcut} to convert text to Persian.")
 
     # Keep the script running
