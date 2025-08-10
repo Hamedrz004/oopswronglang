@@ -11,6 +11,7 @@ def add_to_startup():
     try:
         key = winreg.HKEY_CURRENT_USER
         sub_key = r"Software\Microsoft\Windows\CurrentVersion\Run"
+        print(f'bat file path: {RUN_BAT_PATH}')
         with winreg.OpenKey(key, sub_key, 0, winreg.KEY_SET_VALUE) as registry_key:
             winreg.SetValueEx(registry_key, APP_NAME, 0, winreg.REG_SZ, f'"{RUN_BAT_PATH}"')
     except OSError as e:

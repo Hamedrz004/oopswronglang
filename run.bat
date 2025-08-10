@@ -1,11 +1,7 @@
 @echo off
-REM run.bat
-REM Activates the virtual environment and runs your main Python script.
+cd /d "%~dp0"
 
-REM Activate the virtual environment
 call venv\Scripts\activate.bat
+echo Starting the application...
 
-REM Run your main Python script (replace main.py with your script name if different)
 start "OopsWrongLang" /B pythonw src\main.pyw
-echo application is running in the background. you can close this window.
-pause

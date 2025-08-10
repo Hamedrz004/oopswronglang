@@ -1,6 +1,5 @@
 @echo off
-REM run.bat
-REM Activates the virtual environment and runs your main Python script.
+cd /d "%~dp0"
 
 REM Activate the virtual environment
 call venv\Scripts\activate.bat
