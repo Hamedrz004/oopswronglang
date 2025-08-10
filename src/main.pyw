@@ -8,7 +8,8 @@ import threading
 import pystray
 from PIL import Image
 import re
-from config import get_shortcut
+from config import load_config, save_config, get_shortcut
+from startup import add_to_startup, remove_from_startup, is_in_startup
 
 def convert_en_characters(input_str):
     """
@@ -127,15 +128,35 @@ def quit_app(icon, item):
     import os
     os._exit(0)
 
-def setup_tray():
-    image = Image.open("assets/icon.png")  # Make sure icon.png exists in your project folder
-    menu = pystray.Menu(pystray.MenuItem('Quit', quit_app))
+def setup_tray(config):
+    def on_toggle_startup(icon, item):
+        config["run_on_startup"] = not item.checked
+        save_config(config)
+        if config["run_on_startup"]:
+            add_to_startup()
+        else:
+            remove_from_startup()
+
+    image = Image.open("assets/icon.png")
+    menu = pystray.Menu(
+        pystray.MenuItem(
+            'Run on Startup',
+            on_toggle_startup,
+            checked=lambda item: config["run_on_startup"]
+        ),
+        pystray.MenuItem('Quit', quit_app)
+    )
     icon = pystray.Icon("oopswronglang", image, "OopsWrongLang", menu)
     icon.run()
 
 def main():
+    config = load_config()
+    # Sync startup state just in case it was changed externally
+    config["run_on_startup"] = is_in_startup()
+    save_config(config)
+
     # Start the tray icon in a separate thread
-    tray_thread = threading.Thread(target=setup_tray, daemon=True)
+    tray_thread = threading.Thread(target=lambda: setup_tray(config), daemon=True)
     tray_thread.start()
 
     # Register the keyboard shortcut
