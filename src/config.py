@@ -1,6 +1,6 @@
 import os
 import keyboard
-
+import time
 CONFIG_FILE = "shortcut.txt"
 
 def get_shortcut():
@@ -32,9 +32,11 @@ if __name__ == "__main__":
     print('do you want to change the shortcut? (y/n): ', end='')
     if input().lower() == 'y':
         while True:
+            time.sleep(0.2)
             print("Please press the key combination you want to use as a shortcut and then press ESC.")
             new_shortcut = keyboard.read_hotkey(suppress=False)
             print(f"You pressed: {new_shortcut}")
+            time.sleep(0.5)
             confirm = input("Is this correct? (y/n): ").lower()
             if confirm.lower() == 'y':
                 with open(CONFIG_FILE, "w") as f:
@@ -43,6 +45,7 @@ if __name__ == "__main__":
                 break
             else:
                 print("Let's try again.")
+
     else:
         print("No changes made to the shortcut.")
         print("Exiting without changes.")
