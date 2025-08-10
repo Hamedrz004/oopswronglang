@@ -8,6 +8,7 @@ import threading
 import pystray
 from PIL import Image
 import re
+from config import get_shortcut
 
 def convert_en_characters(input_str):
     """
@@ -136,9 +137,10 @@ def main():
     tray_thread = threading.Thread(target=setup_tray, daemon=True)
     tray_thread.start()
 
-    # Register the keyboard shortcut (Ctrl + Space)
-    keyboard.add_hotkey('ctrl+space', on_shortcut)
-    print("Press Ctrl + Space to convert text to Persian.")
+    # Register the keyboard shortcut
+    shortcut = get_shortcut()
+    keyboard.add_hotkey(shortcut, on_shortcut)
+    print(f"Press {shortcut} to convert text to Persian.")
 
     # Keep the script running
     keyboard.wait()
