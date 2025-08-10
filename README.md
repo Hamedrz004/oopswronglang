@@ -66,7 +66,7 @@ The application runs in the background and monitors for a specific keyboard shor
     ```
 3.  The application will start running in the background, and you will see its icon in the system tray.
 4.  Select any text you want to convert.
-5.  Press `Ctrl+Space`. (or any other shorcut in the shortcut.txt file. see configuration for details.)
+5.  Press `Ctrl+Space`. (or any other shorcut in the shortcut.txt file. see [configuration](https://github.com/Hamedrz004/oopswronglang/tree/add-readme?tab=readme-ov-file#configuration) for details.)
 5.  The selected text will be instantly converted.
 
 To quit the application, right-click the tray icon and select "Quit".
