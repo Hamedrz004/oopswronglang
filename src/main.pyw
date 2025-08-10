@@ -120,7 +120,8 @@ def on_shortcut():
     pyperclip.copy(converted_text)
     print(f"Converted text: {converted_text}")
     keyboard.press_and_release('ctrl+v')  # Paste the converted text
-
+    time.sleep(0.2)
+    keyboard.press_and_release('windows+space')
 def quit_app(icon, item):
     icon.stop()
     import os
