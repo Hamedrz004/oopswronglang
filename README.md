@@ -7,7 +7,6 @@ A simple utility to fix text that you accidentally typed in the wrong keyboard l
 - Converts selected text between English and Persian keyboard layouts.
 - Runs in the background with a system tray icon.
 - Easy to use with a simple keyboard shortcut.
-- Cross-platform (should work on Windows, macOS, and Linux but only tested on windows).
 
 ## How it Works
 
@@ -19,6 +18,7 @@ The application runs in the background and monitors for a specific keyboard shor
 
 ## Prerequisites
 
+-only tested on Windows.
 - You must have Python installed on your system. You can download it from [python.org](https://www.python.org/).
 
 ## Installation
@@ -28,21 +28,6 @@ The application runs in the background and monitors for a specific keyboard shor
     Run the `install.bat` script to create a virtual environment and install the required dependencies.
     ```batch
     install.bat
-    ```
-    **For macOS/Linux users:**
-    Open your terminal and run the following commands:
-    ```bash
-    # Create a virtual environment
-    python -m venv venv
-
-    # Activate the virtual environment
-    # On macOS/Linux:
-    source venv/bin/activate
-    # On Windows (if not using the .bat file):
-    # venv\\Scripts\\activate
-
-    # Install the dependencies
-    pip install -r requirements.txt
     ```
 
 ## Usage
@@ -54,19 +39,9 @@ The application runs in the background and monitors for a specific keyboard shor
     run.bat
     ```
 
-**For macOS/Linux users:**
-
-1.  Activate the virtual environment:
-    ```bash
-    source venv/bin/activate
-    ```
-2.  Run the main script:
-    ```bash
-    pythonw src/main.pyw
-    ```
-3.  The application will start running in the background, and you will see its icon in the system tray.
-4.  Select any text you want to convert.
-5.  Press `Ctrl+Space`. (or any other shorcut in the shortcut.txt file. see [configuration](https://github.com/Hamedrz004/oopswronglang/tree/add-readme?tab=readme-ov-file#configuration) for details.)
+2.  The application will start running in the background, and you will see its icon in the system tray.
+3.  Select any text you want to convert.
+4.  Press `Ctrl+Space`. (or any other shorcut in the shortcut.txt file. see [configuration](https://github.com/Hamedrz004/oopswronglang/tree/add-readme?tab=readme-ov-file#configuration) for details.)
 5.  The selected text will be instantly converted.
 
 To quit the application, right-click the tray icon and select "Quit".
