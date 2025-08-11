@@ -122,13 +122,19 @@ def on_shortcut():
     print(f"Converted text: {converted_text}")
     keyboard.press_and_release('ctrl+v')  # Paste the converted text
     time.sleep(0.2)
-    keyboard.press_and_release('windows+space')
+    if load_config().get("lang_change", True):
+        # Change the keyboard layout to Persian
+        keyboard.press_and_release('windows+space')
 def quit_app(icon, item):
     icon.stop()
     import os
     os._exit(0)
 
 def setup_tray(config):
+    def on_toggle_lang_change(icon, item):
+        config["lang_change"] = not item.checked
+        save_config(config)
+
     def on_toggle_startup(icon, item):
         config["run_on_startup"] = not item.checked
         save_config(config)
@@ -140,6 +146,11 @@ def setup_tray(config):
     image = Image.open("assets/icon.png")
     menu = pystray.Menu(
         pystray.MenuItem(f'Current Shortcut: {get_shortcut()}',lambda icon, item: None),
+        pystray.MenuItem(
+            'change keyboard language layout after transformation',
+            on_toggle_lang_change,
+            checked=lambda item: config["lang_change"]
+        ),
         pystray.MenuItem(
             'Run on Startup',
             on_toggle_startup,
@@ -166,7 +177,7 @@ def main():
     print(f"Press {shortcut} to convert text to Persian.")
 
     # Keep the script running
-    keyboard.wait()
+    keyboard.wait(suppress=True)
 
 if __name__ == "__main__":
     main()

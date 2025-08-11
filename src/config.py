@@ -14,7 +14,7 @@ def load_config():
     It also migrates the old shortcut.txt if it exists.
     """
     if not os.path.exists(CONFIG_FILE):
-        config = {"run_on_startup": False, "shortcut": "ctrl+space"}
+        config = {"run_on_startup": False, "shortcut": "ctrl+shift+b","lang_change": True}
         if os.path.exists(SHORTCUT_FILE):
             with open(SHORTCUT_FILE, "r") as f:
                 shortcut = f.read().strip()
@@ -59,6 +59,7 @@ if __name__ == "__main__":
     config = load_config()
     print(f"Your shortcut is set to: {config.get('shortcut', 'Not set')}")
     print(f"Run on startup is set to: {config.get('run_on_startup', 'Not set')}")
+    print(f"Change language layout after transformation is set to: {config.get('lang_change', 'Not set')}")
 
     print('Do you want to change the shortcut? (y/n): ', end='')
     if input().lower() == 'y':
