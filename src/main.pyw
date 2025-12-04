@@ -10,6 +10,9 @@ from PIL import Image
 import re
 from config import load_config, save_config, get_shortcut
 from startup import add_to_startup, remove_from_startup, is_in_startup
+import os
+import signal
+import atexit
 
 def convert_en_characters(input_str):
     """
@@ -131,6 +134,7 @@ def on_shortcut():
     threading.Thread(target=process_shortcut).start()
 def quit_app(icon, item):
     icon.stop()
+    cleanup_lock()
     import os
     os._exit(0)
 
@@ -165,7 +169,38 @@ def setup_tray(config):
     icon = pystray.Icon("oopswronglang", image, "OopsWrongLang", menu)
     icon.run()
 
+LOCK_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'app.lock')
+
+def cleanup_lock():
+    if os.path.exists(LOCK_FILE):
+        try:
+            os.remove(LOCK_FILE)
+        except OSError:
+            pass
+
+def ensure_single_instance():
+    if os.path.exists(LOCK_FILE):
+        try:
+            with open(LOCK_FILE, 'r') as f:
+                pid = int(f.read().strip())
+            
+            if pid != os.getpid():
+                try:
+                    os.kill(pid, signal.SIGTERM)
+                    print(f"Killed existing instance with PID {pid}")
+                    time.sleep(0.5) 
+                except OSError:
+                    pass
+        except (ValueError, OSError):
+            pass
+    
+    with open(LOCK_FILE, 'w') as f:
+        f.write(str(os.getpid()))
+    
+    atexit.register(cleanup_lock)
+
 def main():
+    ensure_single_instance()
     config = load_config()
     # Sync startup state just in case it was changed externally
     config["run_on_startup"] = is_in_startup()
