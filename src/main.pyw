@@ -11,7 +11,6 @@ import re
 from config import load_config, save_config, get_shortcut
 from startup import add_to_startup, remove_from_startup, is_in_startup
 import os
-import signal
 import atexit
 
 def convert_en_characters(input_str):
@@ -178,22 +177,32 @@ def cleanup_lock():
         except OSError:
             pass
 
+def is_process_running(pid):
+    """Check if a process with the given PID is still running."""
+    try:
+        os.kill(pid, 0)  # Signal 0 doesn't kill, just checks if process exists
+        return True
+    except OSError:
+        return False
+
 def ensure_single_instance():
+    """Ensure only one instance of the app is running. Exit if another instance exists."""
     if os.path.exists(LOCK_FILE):
         try:
-            with open(LOCK_FILE, 'r') as f:
-                pid = int(f.read().strip())
-            
-            if pid != os.getpid():
-                try:
-                    os.kill(pid, signal.SIGTERM)
-                    print(f"Killed existing instance with PID {pid}")
-                    time.sleep(0.5) 
-                except OSError:
-                    pass
+                # Another instance is running, show message and exit
+                import ctypes
+                ctypes.windll.user32.MessageBoxW(
+                    0,
+                    "Another instance of OopsWrongLang is already running.\n\nPlease close the existing instance first (check your system tray).",
+                    "OopsWrongLang - Already Running",
+                    0x40  # MB_ICONINFORMATION
+                )
+                os._exit(1)
         except (ValueError, OSError):
+            # Lock file exists but is invalid or unreadable, clean it up
             pass
     
+    # Create lock file with our PID
     with open(LOCK_FILE, 'w') as f:
         f.write(str(os.getpid()))
     
