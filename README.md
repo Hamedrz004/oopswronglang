@@ -41,7 +41,7 @@ The application runs in the background and monitors for a specific keyboard shor
 
 2.  The application will start running in the background, and you will see its icon in the system tray.
 3.  Select any text you want to convert.
-4.  Press `Ctrl+Space`. (or any other shorcut in the shortcut.txt file. see [configuration](https://github.com/Hamedrz004/oopswronglang/tree/add-readme?tab=readme-ov-file#configuration) for details.)
+4.  Press `Ctrl+Space`. (The shortcut can be customized in `config.json` or by running `config&run.bat`. see [configuration](https://github.com/Hamedrz004/oopswronglang/tree/add-readme?tab=readme-ov-file#configuration) for details.)
 5.  The selected text will be instantly converted.
 
 To quit the application, right-click the tray icon and select "Quit".
@@ -49,9 +49,9 @@ To quit the application, right-click the tray icon and select "Quit".
 ## Configuration
 
 **For Windows users:**
-use the `configure&run.bat` for ease of use.
-it automatically updates `shortcut.txt` file and runs the app.
-you can edit the `shortcut.txt` yourself too but be cautious.
+Run `config&run.bat` to easily configure the application.
+This script allows you to set your preferred shortcut and other options, which are saved in `config.json`.
+You can also manually edit `config.json` if you prefer.
 
 ## Dependencies
 
