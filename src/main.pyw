@@ -106,8 +106,8 @@ def _multiple_replace(mapping, text):
     return re.sub(pattern, lambda m: mapping[m.group()], str(text))
 
 # Function to handle the keyboard shortcut
-def on_shortcut():
-    """This function is called when the shortcut is pressed."""
+def process_shortcut():
+    """This function contains the logic to handle the shortcut."""
     orginal_text = pyperclip.paste()  # Get the current clipboard content
     time.sleep(0.1)
     keyboard.press_and_release('ctrl+c') # Simulate pressing Ctrl+C to copy selected text
@@ -125,6 +125,10 @@ def on_shortcut():
     if load_config().get("lang_change", True):
         # Change the keyboard layout to Persian
         keyboard.press_and_release('windows+space')
+
+def on_shortcut():
+    """This function is called when the shortcut is pressed."""
+    threading.Thread(target=process_shortcut).start()
 def quit_app(icon, item):
     icon.stop()
     import os
@@ -173,7 +177,7 @@ def main():
 
     # Register the keyboard shortcut
     shortcut = get_shortcut()
-    keyboard.add_hotkey(shortcut, on_shortcut)
+    keyboard.add_hotkey(shortcut, on_shortcut, suppress=True)
     print(f"Press {shortcut} to convert text to Persian.")
 
     # Keep the script running
