@@ -1,4 +1,8 @@
 keyboard==0.13.5
 pyperclip==1.9.0
 pystray==0.19.5
+<<<<<<< HEAD
 Pillow==12.0.0
+=======
+Pillow==12.0.0
+>>>>>>> 4143eb7dfbdcc5a646f23c1fc5369779d41c4f4a
